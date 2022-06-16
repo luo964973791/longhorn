@@ -1,6 +1,12 @@
 ### helm3部署longhorn存储
 
 ```javascript
+#所有服务器都yum install iscsi-initiator-utils -y
+yum install iscsi-initiator-utils -y
+systemctl enable iscsid
+systemctl start iscsid
+
+#在k8smaster服务器上部署
 helm repo add longhorn https://charts.longhorn.io
 helm repo update
 helm pull longhorn/longhorn
