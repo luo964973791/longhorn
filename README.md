@@ -1,8 +1,8 @@
 ### helm3部署longhorn存储
 
 ```javascript
-#所有服务器都yum install iscsi-initiator-utils -y
-yum install iscsi-initiator-utils -y
+#所有服务器都yum install nfs-utils iscsi-initiator-utils -y
+yum install nfs-utils iscsi-initiator-utils -y
 systemctl enable iscsid
 systemctl start iscsid
 
