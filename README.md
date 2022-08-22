@@ -7,23 +7,14 @@ systemctl enable iscsid
 systemctl start iscsid
 
 #在k8smaster服务器上部署
-helm repo add longhorn https://charts.longhorn.io
-helm repo update
-helm pull longhorn/longhorn
-tar xvf longhorn-x.x.x.tgz && cd longhorn-x.x.x
-kubectl create ns longhorn-system
-
-# 修改 nodeport、defaultDataPath两个字段.
-vi values.yaml
-service:
-  ui:
-    type: NodePort
-    nodePort: 32000
-defaultSettings:
-  defaultDataPath: /data/longhorn
-
-
-helm install longhorn -n longhorn-system -f ./values.yaml .
+helm install longhorn \
+  --namespace longhorn-system \
+  --create-namespace \
+  --set defaultSettings.defaultDataPath="/var/lib/longhorn/" \
+  --set defaultSettings.defaultReplicaCount=3 \
+  --set service.ui.type=NodePort \
+  --set service.ui.nodePort=30890 \
+  longhorn/longhorn
 ```
 
 ### 创建pvc测试.
