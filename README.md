@@ -5,6 +5,9 @@
 yum install nfs-utils iscsi-initiator-utils -y
 systemctl enable iscsid
 systemctl start iscsid
+helm repo add longhorn https://charts.longhorn.io
+helm repo update
+
 
 #在k8smaster服务器上部署
 helm install longhorn \
